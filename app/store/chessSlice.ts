@@ -4,7 +4,7 @@ import { Chess } from "chess.js";
 
 export interface ChessState {
   fen: string;
-  history: { move: string; explanation: string }[];
+  history: { move: string; explanation: string, rating: string, bestmove: string, scoreDifference: string }[];
   gameOver: boolean;
   turn: "w" | "b";
 }
@@ -24,24 +24,26 @@ const chessSlice = createSlice({
   reducers: {
     makeMove: (
       state,
-      action: PayloadAction<{ move: string; explanation: string }>
+      action: PayloadAction<{ move: string; explanation: string, rating: string, bestmove: string, scoreDifference: string }>
     ) => {
       const game = new Chess(state.fen);
       const move = game.move(action.payload.move);
-
       if (move) {
         state.fen = game.fen();
         state.history = [
           ...state.history,
-          { move: game.history()[0], explanation: action.payload.explanation },
+          { move: game.history()[0], explanation: action.payload.explanation, rating: action.payload.rating, bestmove: action.payload.bestmove, scoreDifference:action.payload.scoreDifference },
         ];
         state.gameOver = game.isGameOver();
         state.turn = game.turn();
       }
     },
-    resetGame: (state) => {
+    setFen: (state, action: PayloadAction<string>) => {
+      state.fen = action.payload;
+    },
+    resetGame: (state, action: PayloadAction<string>) => {
       const game = new Chess();
-      state.fen = game.fen();
+      state.fen = action.payload;
       state.history = [];
       state.gameOver = false;
       state.turn = game.turn();
@@ -49,5 +51,5 @@ const chessSlice = createSlice({
   },
 });
 
-export const { makeMove, resetGame } = chessSlice.actions;
+export const { makeMove, resetGame, setFen } = chessSlice.actions;
 export default chessSlice.reducer;
