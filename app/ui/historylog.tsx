@@ -24,6 +24,7 @@ export default function HistoryLog() {
           index: number
         ) => {
           const ratingColor = ratingColors.get(event.rating);
+          if (index % 2 !== 0){ return }
           return (
             <div key={index} className="border-2">
               <div className="flex">

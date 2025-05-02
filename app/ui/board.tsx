@@ -15,7 +15,7 @@ import Button from "@/app/ui/button";
 
 export default function Board() {
   const dispatch = useAppDispatch();
-  const maxTurns = 10;
+  const maxTurns = 100;
   const [score, setScore] = React.useState(0);
   const [startingFen, setStartingFen] = React.useState("");
   const [isInputValid, setIsInputValid] = React.useState(true);
@@ -146,7 +146,7 @@ export default function Board() {
     [dispatch]
   );
   React.useEffect(() => {
-    if (turnLimitReached) {
+    if (turnLimitReached || gameOver) {
       setScore(
         history
           .map((entry) => Number(entry.scoreDifference))
@@ -170,6 +170,7 @@ export default function Board() {
   }, [
     fens,
     game,
+    gameOver,
     generateAIMove,
     handleFenChange,
     history,
@@ -180,7 +181,7 @@ export default function Board() {
   ]);
   return (
     <div>
-      {started && (
+      {started && !gameOver && (
         <div
           className={`opacity-65 z-10 bg-gunmetal h-screen w-screen absolute left-0 top-0 flex`}
         >
@@ -210,18 +211,27 @@ export default function Board() {
                 <p className="text-red-400 bg-black">Stalemate!</p>
               )}
               {game.isCheckmate() && (
-                <p className="mx-auto my-auto text-red-400 bg-black">
-                  Checkmate!
-                </p>
+                <div>
+                  <p className="mx-auto my-auto text-red-400 bg-black">
+                    Checkmate!
+                  </p>
+                  <p className="mx-auto my-auto text-red-400 bg-black">
+                    {turn === "w" ? "Black wins!" : "White wins!"}
+                  </p>
+                </div>
               )}
-              {turn === "w" ? (
+              {/* {turn === "w" && game.isCheckmate() && (
                 <p className="mx-auto my-auto text-red-400 bg-black">
                   Black wins!
                 </p>
-              ) : (
+              )}
+              {turn === "b" && game.isCheckmate() && (
                 <p className="mx-auto my-auto text-red-400 bg-black">
                   White wins!
                 </p>
+              )} */}
+              {game.isDraw() && (
+                <p className="mx-auto my-auto text-red-400 bg-black">Draw!</p>
               )}
             </div>
           </div>
@@ -238,6 +248,7 @@ export default function Board() {
           position={fen}
           // onPieceDrop={onDrop}
           autoPromoteToQueen={true}
+          arePiecesDraggable={false}
         />
       </div>
 
