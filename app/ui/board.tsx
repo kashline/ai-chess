@@ -105,8 +105,8 @@ export default function Board() {
           }),
         })
       ).json();
-      const moveEval = await (
-        await fetch("http://localhost:5001/evaluatemove", {
+      const { moveEval } = await (
+        await fetch("api/stockfish/evaluateMove", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -125,8 +125,8 @@ export default function Board() {
         moveEval.score_difference
       );
     } else {
-      const move = await (
-        await fetch("http://localhost:5001/makemove", {
+      const { move } = await (
+        await fetch("api/stockfish/makeMove", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -243,26 +243,30 @@ export default function Board() {
 
       {/* Buttons */}
       <div className="flex gap-10 my-5">
-        {history.length === 0 && <Button
-          className="border-2 mx-auto"
-          onClick={async () => {
-            if (isInputValid) {
-              setStartingFen(fen);
-              setStarted(true);
-            }
-          }}
-        >
-          Start
-        </Button>}
-        {history.length !== 0 && <Button
-          className="border-2 mx-auto"
-          onClick={async () => {
-            setStarted(false);
-            dispatch(resetGame(startingFen));
-          }}
-        >
-          Reset
-        </Button>}
+        {history.length === 0 && (
+          <Button
+            className="border-2 mx-auto"
+            onClick={async () => {
+              if (isInputValid) {
+                setStartingFen(fen);
+                setStarted(true);
+              }
+            }}
+          >
+            Start
+          </Button>
+        )}
+        {history.length !== 0 && (
+          <Button
+            className="border-2 mx-auto"
+            onClick={async () => {
+              setStarted(false);
+              dispatch(resetGame(startingFen));
+            }}
+          >
+            Reset
+          </Button>
+        )}
       </div>
       {/* Settings */}
       <div className="border-1 border-gunmetal py-4">
