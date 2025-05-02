@@ -15,7 +15,7 @@ import Button from "@/app/ui/button";
 
 export default function Board() {
   const dispatch = useAppDispatch();
-  const maxTurns = 100;
+  const maxTurns = 10;
   const [score, setScore] = React.useState(0);
   const [startingFen, setStartingFen] = React.useState("");
   const [isInputValid, setIsInputValid] = React.useState(true);

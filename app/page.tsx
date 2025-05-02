@@ -9,8 +9,8 @@ export default function Page() {
   const [isMobile] = useResponsiveBreakpoints()
   return (
     <div className="flex max-w-full">
-      <div className="flex mx-auto w-[800]">
-        <div className="w-[65%] mx-auto">
+      <div className={`flex mx-auto w-[${isMobile ? '100%' : '65%'}]`}>
+        <div className={`w-[${isMobile ? '80%' : '65%'}] mx-auto}`}>
           <Board />
         </div>
         {!isMobile && <div className="w-[35%]">
