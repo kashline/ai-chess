@@ -394,11 +394,11 @@ export default function Board() {
             </div>
           </div>
           <div className="flex">
-            <div className="mx-auto my-4">
+            {/* <div className="mx-auto my-4">
               <button className="border-2 border-gray-500 rounded-md hover:border-blue-400">
                 Save to Leaderboard
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       )}
