@@ -187,7 +187,8 @@ export default function Board() {
         >
           <div className="mx-auto my-auto bg-black">
             <div className="mx-auto my-auto text-lavendar-blush text-2xl mt-[25%]">
-              Game in progress...
+              <p>Game in progress...</p>
+              <p>Turns remaining: {maxTurns - history.length}</p>
             </div>
             <div className="flex">
               <Button
