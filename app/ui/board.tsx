@@ -343,10 +343,14 @@ export default function Board() {
         </div>
         <div className="mx-12">
           <textarea
-            className="bg-gunmetal rounded-md text-lavendar-blush w-full px-2"
+            className="bg-gunmetal rounded-md text-lavendar-blush w-full px-2 h-auto overflow-hidden"
             onChange={(e) => {
               setPrompt(e.target.value);
               setIsInputValid(!matcher.hasMatch(e.target.value));
+            }}
+            onInput={(e) => {
+              e.currentTarget.style.height = 'auto';
+              e.currentTarget.style.height = `${e.currentTarget.scrollHeight}px`;
             }}
             readOnly={started || turnLimitReached ? true : false}
             maxLength={512}
