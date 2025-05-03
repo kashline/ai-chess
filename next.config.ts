@@ -1,7 +1,56 @@
-import type { NextConfig } from "next";
+module.exports = {
+  images: {
+    domains: [
+      "lh3.googleusercontent.com",
+    ],
+    formats: ["image/webp"],
+    minimumCacheTTL: 2678400,
+  },
+  transpilePackages: ["next-auth"],
+  async headers() {
+    return [
+      {
+        // matching all API routes
+        source: "/api/:path*",
+        headers: [
+          { key: "Access-Control-Allow-Credentials", value: "true" },
+          { key: "Access-Control-Allow-Origin", value: "*" },
+          {
+            key: "Access-Control-Allow-Methods",
+            value: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
+          },
+          {
+            key: "Access-Control-Allow-Headers",
+            value:
+              "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
+          },
+        ],
+      },
 
-const nextConfig: NextConfig = {
-  /* config options here */
+      {
+        source: "/auth/:path*",
+        headers: [
+          { key: "Access-Control-Allow-Credentials", value: "true" },
+          { key: "Access-Control-Allow-Origin", value: "*" },
+          {
+            key: "Access-Control-Allow-Methods",
+            value: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
+          },
+          {
+            key: "Access-Control-Allow-Headers",
+            value:
+              "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
+          },
+        ],
+      },
+    ];
+  },
+  // experimental: {
+  //   nodeMiddleware: true,
+  // },
+  // Instrumentation doesn't seem to be working well with sequelize.  Waiting for non-beta support
+  // experimental:
+  // {
+  //     instrumentationHook: true
+  // }
 };
-
-export default nextConfig;
