@@ -21,7 +21,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth(() => {
             const baseUrl = process.env.BASEURL
               ? "https://" + process.env.BASEURL
               : "http://localhost:3000";
-            console.log(baseUrl)
             fetch(`${baseUrl}/api/user/create`, {
               body: JSON.stringify(profile),
               method: "POST",
