@@ -1,7 +1,7 @@
 import Puzzle from "@/app/data/models/Puzzle";
 import { PuzzleZodel } from "@/app/data/zodels/PuzzleZodel";
-import Board from "@/app/ui/Board";
-import HistoryLog from "@/app/ui/HistoryLog";
+import Board from "@/app/ui/tmp/Board";
+import HistoryLog from "@/app/ui/tmp/HistoryLog";
 import * as React from "react";
 
 export default async function Page() {

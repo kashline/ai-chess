@@ -11,7 +11,7 @@ import {
   englishDataset,
   englishRecommendedTransformers,
 } from "obscenity";
-import Button from "@/app/ui/Button";
+import Button from "@/app/ui/tmp/Button";
 import PostToLeaderboard from "@/app/ui/PostToLeaderboard";
 import { PuzzleZype } from "@/app/data/zodels/PuzzleZodel";
 
