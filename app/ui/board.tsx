@@ -11,14 +11,17 @@ import {
   englishDataset,
   englishRecommendedTransformers,
 } from "obscenity";
-import Button from "@/app/ui/button";
+import Button from "@/app/ui/Button";
+import PostToLeaderboard from "@/app/ui/PostToLeaderboard";
+import { PuzzleZype } from "@/app/data/zodels/PuzzleZodel";
 
-export default function Board() {
+export default function Board({ puzzles }: { puzzles: PuzzleZype[] }) {
   const dispatch = useAppDispatch();
-  const maxTurns = 10;
+  const maxTurns = 1;
   const [score, setScore] = React.useState(0);
-  const [startingFen, setStartingFen] = React.useState("");
+  const [startingPuzzle, setStartingPuzzle] = React.useState(puzzles[0]);
   const [isInputValid, setIsInputValid] = React.useState(true);
+  const { user } = useAppSelector((state) => state.user);
   const matcher = new RegExpMatcher({
     ...englishDataset.build(),
     ...englishRecommendedTransformers,
@@ -28,46 +31,6 @@ export default function Board() {
   );
   const turnLimitReached = history.length >= maxTurns;
   const models = ["gpt-4o-mini", "gpt-4.1-mini", "gpt-4.1", "o4-mini"];
-  const fens = React.useMemo(() => {
-    return [
-      {
-        title: "The Corner Trap",
-        fen: "7k/5K2/5P2/8/8/8/8/8 w - - 0 1",
-      },
-      {
-        title: "Storm Breaker",
-        fen: "r1b1kb1r/pppp1ppp/2n2n2/4p3/2B1P3/2NP1N2/PPP2PPP/R1BQK2R w KQkq - 2 5",
-      },
-      {
-        title: "Royal Cage",
-        fen: "rnb1kbnr/ppp2ppp/8/3pp3/3P4/3B1N2/PPP2PPP/RNBQK2R w KQkq - 0 5",
-      },
-      {
-        title: "Edge of the World",
-        fen: "6k1/5ppp/8/8/8/8/PPP5/4R1K1 w - - 0 1",
-      },
-      {
-        title: "Silent Strike",
-        fen: "r3kb1r/ppp2ppp/2n2n2/3pp3/3P4/2P2NP1/PP2PPBP/RNB1K2R w KQkq - 2 6",
-      },
-      {
-        title: "Final Embrace",
-        fen: "r1bqk2r/ppp2ppp/2n2n2/3pp3/3P1B2/2N2N2/PPP2PPP/R2QK2R w KQkq - 4 6",
-      },
-      {
-        title: "Net Tightening",
-        fen: "6k1/5ppp/8/8/8/8/5PPP/5RK1 w - - 0 1",
-      },
-      {
-        title: "Frozen King",
-        fen: "7k/5ppp/8/8/8/8/PPP2PPP/6K1 w - - 0 1",
-      },
-      {
-        title: "Web of Death",
-        fen: "r2qkb1r/ppp2ppp/2n2n2/3pp3/2P5/2N2NP1/PP2PPBP/R1BQ1RK1 w kq - 4 7",
-      },
-    ];
-  }, []);
   const game = React.useMemo(() => {
     return new Chess(fen);
   }, [fen]);
@@ -163,20 +126,20 @@ export default function Board() {
       }, 3000);
       return () => clearTimeout(timeout); // cleanup on unmount
     }
-    if (!startingFen) {
-      setStartingFen(fens[0].fen);
-      handleFenChange(fens[0].fen);
+    if (!startingPuzzle) {
+      setStartingPuzzle(puzzles[0]);
+      handleFenChange(puzzles[0].fen);
     }
   }, [
-    fens,
     game,
     gameOver,
     generateAIMove,
     handleFenChange,
     history,
     history.length,
+    puzzles,
     started,
-    startingFen,
+    startingPuzzle,
     turnLimitReached,
   ]);
   return (
@@ -260,7 +223,7 @@ export default function Board() {
             className="border-2 mx-auto"
             onClick={async () => {
               if (isInputValid) {
-                setStartingFen(fen);
+                // setStartingFen(fen);
                 setStarted(true);
               }
             }}
@@ -273,7 +236,7 @@ export default function Board() {
             className="border-2 mx-auto"
             onClick={async () => {
               setStarted(false);
-              dispatch(resetGame(startingFen));
+              dispatch(resetGame(startingPuzzle?.fen));
             }}
           >
             Reset
@@ -313,22 +276,23 @@ export default function Board() {
           <div className="mx-auto">
             <label>FEN: </label>
             <select
-              value={startingFen}
+              value={JSON.stringify(startingPuzzle)}
               onChange={(e) => {
-                handleFenChange(e.target.value);
-                setStartingFen(e.target.value);
+                const parsed = JSON.parse(e.target.value)
+                handleFenChange(parsed.fen);
+                setStartingPuzzle(parsed);
               }}
               className="border-1 rounded-md text-lavendar-blush"
             >
-              {fens.map(
-                (fen: { title: string; fen: string }, index: number) => {
+              {puzzles.map(
+                (puzzle: { title: string; fen: string, id: number }) => {
                   return (
                     <option
                       className="text-lavendar-blush"
-                      key={index}
-                      value={fen.fen}
+                      key={puzzle.id}
+                      value={JSON.stringify(puzzle)}
                     >
-                      {fen.title}
+                      {puzzle.title}
                     </option>
                   );
                 }
@@ -350,7 +314,7 @@ export default function Board() {
               setIsInputValid(!matcher.hasMatch(e.target.value));
             }}
             onInput={(e) => {
-              e.currentTarget.style.height = 'auto';
+              e.currentTarget.style.height = "auto";
               e.currentTarget.style.height = `${e.currentTarget.scrollHeight}px`;
             }}
             readOnly={started || turnLimitReached ? true : false}
@@ -365,7 +329,7 @@ export default function Board() {
         </div>
       </div>
       {/* Results */}
-      {(turnLimitReached || gameOver) && (
+      {/* {(turnLimitReached || gameOver) && (
         <div className="border-2 border-green-600 py-2">
           <div className="flex">
             <h1 className="mx-auto text-lg">Run Complete</h1>
@@ -394,13 +358,57 @@ export default function Board() {
               </p>
             </div>
           </div>
+          <div className="flex"></div>
+        </div>
+      )}
+      {(turnLimitReached || gameOver) && user && (
+        <PostToLeaderboard
+          score={score}
+          puzzleId={startingFen}
+          prompt={prompt}
+          model={model}
+          turnsRemaining={maxTurns - history.length}
+        />
+      )} */}
+      {(turnLimitReached || gameOver) && (
+        <div className="border-2 border-green-600 py-2">
           <div className="flex">
-            {/* <div className="mx-auto my-4">
-              <button className="border-2 border-gray-500 rounded-md hover:border-blue-400">
-                Save to Leaderboard
-              </button>
-            </div> */}
+            <h1 className="mx-auto text-lg">Run Complete</h1>
           </div>
+          <div className="flex">
+            <p className="mx-auto text-lg">Score: {score}</p>
+          </div>
+          <div className="border-gray-50 border-1">
+            <div className="flex">
+              <h1 className="mx-auto text-2xl">Parameters</h1>
+            </div>
+            <div className="flex mx-auto">
+              <label>Model:</label>
+              <p>{model}</p>
+            </div>
+            <div className="flex mx-auto">
+              <label>Starting FEN:</label>
+              <p>{startingPuzzle.title}</p>
+            </div>
+            <div className="flex mx-auto">
+              <h1 className="mx-auto">Prompt</h1>
+            </div>
+            <div className="flex">
+              <p className="mx-auto  wrap-break-word overflow-hidden max-w-[80%] rounded-sm">
+                {prompt || "None"}
+              </p>
+            </div>
+          </div>
+          <div className="flex"></div>
+          {user && (
+            <PostToLeaderboard
+              score={score}
+              puzzleId={startingPuzzle.id}
+              prompt={prompt}
+              model={model}
+              turnsRemaining={maxTurns - history.length}
+            />
+          )}
         </div>
       )}
     </div>

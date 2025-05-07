@@ -1,9 +1,10 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../connection";
 import User from "@/app/data/models/User";
+import Puzzle from "@/app/data/models/Puzzle";
 
 /**
- * Model for a user containing id, sub, name, email, emailVerified, and image.
+ * Model for a UserScore.
  */
 export default class UserScore extends Model {}
 
@@ -14,12 +15,19 @@ UserScore.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    user_id: {
+    UserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      unique: true,
       references: {
         model: User,
+        key: "id",
+      },
+    },
+    PuzzleId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Puzzle,
         key: "id",
       },
     },
@@ -27,12 +35,16 @@ UserScore.init(
     score: DataTypes.INTEGER,
     model: DataTypes.STRING,
     prompt: DataTypes.STRING,
-    startingPos: DataTypes.STRING,
     turnsRemaining: DataTypes.INTEGER,
-    result: DataTypes.STRING,
+    email: DataTypes.STRING,
   },
   {
     sequelize,
-    modelName: "User",
-  },
+    modelName: "UserScore",
+  }
 );
+
+User.hasMany(UserScore);
+UserScore.belongsTo(User, { foreignKey: "UserId" });
+Puzzle.hasMany(UserScore, { foreignKey: 'PuzzleId' });
+UserScore.belongsTo(Puzzle, { foreignKey: "PuzzleId" });

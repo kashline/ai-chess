@@ -1,17 +1,17 @@
 import { z } from "zod";
 
-export const UserZodel = z.object({
+export const UserScoreZodel = z.object({
   id: z.number().optional(),
-  user_id: z.number(),
+  UserId: z.number(),
   sub: z.string(),
-  score: z.string(),
-  model: z.boolean(),
+  score: z.number(),
+  model: z.string(),
   prompt: z.string(),
-  startingPos: z.string(),
+  PuzzleId: z.number(),
   turnsRemaining: z.number(),
-  results: z.string(),
-  updatedAt: z.date(),
-  createdAt: z.date(),
+  updatedAt: z.date().optional(),
+  createdAt: z.date().optional(),
+  email: z.string(),
 });
 
-export type UserScoreZype = z.infer<typeof UserZodel>;
+export type UserScoreZype = z.infer<typeof UserScoreZodel>;

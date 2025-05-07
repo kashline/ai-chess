@@ -1,4 +1,4 @@
-import ProfileButton from "@/app/ui/profilebutton";
+import ProfileButton from "@/app/ui/ProfileButton";
 
 export default function Topbar() {
   return (

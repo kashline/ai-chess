@@ -4,7 +4,13 @@ import { Chess } from "chess.js";
 
 export interface ChessState {
   fen: string;
-  history: { move: string; explanation: string, rating: string, bestmove: string, scoreDifference: string }[];
+  history: {
+    move: string;
+    explanation: string;
+    rating: string;
+    bestmove: string;
+    scoreDifference: string;
+  }[];
   gameOver: boolean;
   turn: "w" | "b";
 }
@@ -24,7 +30,13 @@ const chessSlice = createSlice({
   reducers: {
     makeMove: (
       state,
-      action: PayloadAction<{ move: string; explanation: string, rating: string, bestmove: string, scoreDifference: string }>
+      action: PayloadAction<{
+        move: string;
+        explanation: string;
+        rating: string;
+        bestmove: string;
+        scoreDifference: string;
+      }>
     ) => {
       const game = new Chess(state.fen);
       const move = game.move(action.payload.move);
@@ -32,7 +44,13 @@ const chessSlice = createSlice({
         state.fen = game.fen();
         state.history = [
           ...state.history,
-          { move: game.history()[0], explanation: action.payload.explanation, rating: action.payload.rating, bestmove: action.payload.bestmove, scoreDifference:action.payload.scoreDifference },
+          {
+            move: game.history()[0],
+            explanation: action.payload.explanation,
+            rating: action.payload.rating,
+            bestmove: action.payload.bestmove,
+            scoreDifference: action.payload.scoreDifference,
+          },
         ];
         state.gameOver = game.isGameOver();
         state.turn = game.turn();

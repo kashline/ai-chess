@@ -1,3 +1,5 @@
+'use client'
+
 import { useAppSelector } from "@/app/store/hooks";
 import * as React from "react";
 

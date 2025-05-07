@@ -1,26 +1,25 @@
-"use client";
-
-import Board from "@/app/ui/board";
-import HistoryLog from "@/app/ui/historylog";
-import useResponsiveBreakpoints from "@/app/util/useResponsiveBreakpoints";
+import Puzzle from "@/app/data/models/Puzzle";
+import { PuzzleZodel } from "@/app/data/zodels/PuzzleZodel";
+import Board from "@/app/ui/Board";
+import HistoryLog from "@/app/ui/HistoryLog";
 import * as React from "react";
 
-export default function Page() {
-  const [isMobile] = useResponsiveBreakpoints()
+export default async function Page() {
+  const puzzles = (await Puzzle.findAll()).map((puzzle) => {return PuzzleZodel.parse(puzzle)});
   return (
     <div className="flex max-w-full">
-      <div className={`flex mx-auto w-[${isMobile ? '100%' : '65%'}]`}>
-        <div className={`w-[${isMobile ? '80%' : '65%'}] mx-auto}`}>
-          <Board />
+      <div className={`flex mx-auto w-[85%}]`}>
+        <div className={`w-[65%}] mx-auto}`}>
+          <Board puzzles={puzzles}/>
         </div>
-        {!isMobile && <div className="w-[35%]">
+        <div className="w-[35%]">
           <div className="w-full flex">
             <h1 className="mx-auto text-green-400 rounded shadow-inner font-mono text-sm">
               History
             </h1>
           </div>
           <HistoryLog />
-        </div>}
+        </div>
       </div>
     </div>
   );
