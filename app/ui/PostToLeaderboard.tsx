@@ -3,7 +3,7 @@ import {
   UserScoreZype,
 } from "@/app/data/zodels/UserScoreZodel";
 import { useAppSelector } from "@/app/store/hooks";
-import Button from "@/app/ui/tmp/Button";
+import Button from "@/app/ui/Button";
 import * as React from "react";
 
 export default function PostToLeaderboard({
