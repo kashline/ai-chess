@@ -9,12 +9,13 @@ import Board from "@/app/ui/Board";
 import * as React from "react";
 
 export default async function Page() {
-  const puzzles = (await Puzzle.findAll()).map((puzzle) => {
-    return PuzzleZodel.parse(puzzle);
-  });
   await User.sync();
   await Puzzle.sync();
   await UserScore.sync();
+  const puzzles = (await Puzzle.findAll()).map((puzzle) => {
+    return PuzzleZodel.parse(puzzle);
+  });
+
   return (
     <div className="flex">
       <div className={`flex mx-auto w-full h-full`}>
