@@ -7,8 +7,7 @@ import { twMerge } from "tailwind-merge";
  * @param props
  * @returns React.JSX.Element
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function Button(props: any) {
+export default function Button(props: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   // Merge className prop (if any) with existing standard className
   const className = props.className
     ? twMerge(

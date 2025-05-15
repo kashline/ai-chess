@@ -6,8 +6,11 @@ export const GET = async () => {
   try {
     await User.sync();
     await UserScore.sync();
-    const res = await UserScore.findAll({order: [['score', 'ASC']], include: {model: Puzzle}});
-    console.log(res)
+    const res = await UserScore.findAll({
+      order: [["score", "ASC"]],
+      include: [{ model: Puzzle }, { model: User }],
+    });
+    console.log(res);
     return Response.json({ userScore: res, success: true }, { status: 200 });
   } catch (error) {
     console.log(`There was an error retrieving leaderboard scores: ${error}`);

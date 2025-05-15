@@ -1,10 +1,11 @@
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const pg = require("pg");
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const { Sequelize } = require("sequelize");
+import pg from 'pg';
+import { Sequelize } from 'sequelize';
 
-const dialectOptions =
-  process.env.ENV !== "DEV" ? { ssl: { require: true } } : undefined;
+const useSSL = process.env.NODE_ENV === "production";
+
+const dialectOptions = useSSL
+  ? { ssl: { require: true, rejectUnauthorized: false } }
+  : {};
 
 const sequelize = new Sequelize({
   username: process.env.POSTGRES_USER,
@@ -15,7 +16,7 @@ const sequelize = new Sequelize({
   dialect: "postgres",
   dialectModule: pg,
   logging: false,
-  dialectOptions: dialectOptions,
+  dialectOptions,
 });
 
 export default sequelize;

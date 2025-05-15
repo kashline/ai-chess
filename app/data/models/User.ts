@@ -18,6 +18,7 @@ User.init(
       allowNull: false,
       unique: true,
     },
+    username: { type: DataTypes.STRING, unique: true },
     name: DataTypes.STRING,
     email: { type: DataTypes.STRING, unique: true },
     emailVerified: DataTypes.BOOLEAN,
@@ -26,5 +27,5 @@ User.init(
   {
     sequelize,
     modelName: "User",
-  },
+  }
 );

@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import AuthSync from "@/app/util/AuthSync";
 import { SessionProvider } from "next-auth/react";
+import CreateUsernameBanner from "@/app/ui/CreateUsernameBanner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,10 +34,11 @@ export default function RootLayout({
       <Providers>
         <SessionProvider>
           <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased mx-[10%]`}
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
           >
             <Topbar />
-            {children}
+            <CreateUsernameBanner />
+            <div className="my-6">{children}</div>
             <Analytics />
             <SpeedInsights />
             <AuthSync />

@@ -20,16 +20,15 @@ export default function PostToLeaderboard({
   puzzleId: number;
 }) {
   const reduxUser = useAppSelector((state) => state.user);
+  console.log(reduxUser)
   const [res, setRes] = React.useState<boolean | null>(null);
   const userScore: UserScoreZype = UserScoreZodel.parse({
-    sub: reduxUser.user?.sub,
     score: score,
     prompt: prompt,
     UserId: reduxUser.user?.id,
     model: model,
-    puzzle: puzzleId,
+    PuzzleId: puzzleId,
     turnsRemaining: turnsRemaining,
-    email: reduxUser.user?.email,
   });
   const handleClick = React.useCallback(async () => {
     try {
@@ -51,8 +50,8 @@ export default function PostToLeaderboard({
     return <></>;
   }
   return (
-    <div>
-      <Button onClick={handleClick}>Post to leaderboard</Button>
+    <div className="w-fit">
+      <Button disabled={reduxUser.user?.username === null} onClick={handleClick}>Post to leaderboard</Button>
       {res && (
         <div>
           <p className="text-green-500">Successfully submitted score</p>

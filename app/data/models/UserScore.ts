@@ -31,12 +31,10 @@ UserScore.init(
         key: "id",
       },
     },
-    sub: DataTypes.STRING,
     score: DataTypes.INTEGER,
     model: DataTypes.STRING,
     prompt: DataTypes.STRING,
     turnsRemaining: DataTypes.INTEGER,
-    email: DataTypes.STRING,
   },
   {
     sequelize,

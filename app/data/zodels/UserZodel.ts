@@ -7,6 +7,7 @@ export const UserZodel = z.object({
   name: z.string(),
   emailVerified: z.boolean(),
   image: z.string(),
+  username: z.string(),
   updatedAt: z.date(),
   createdAt: z.date(),
 });
