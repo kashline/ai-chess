@@ -20,7 +20,7 @@ export const models = ["gpt-4o-mini", "gpt-4.1-mini", "gpt-4.1", "o4-mini"];
 
 export default function Board({ puzzles }: { puzzles: PuzzleZype[] }) {
   const dispatch = useAppDispatch();
-  const maxTurns = 10;
+  const maxTurns = 1;
   const [score, setScore] = React.useState(0);
   const [isInputValid, setIsInputValid] = React.useState(true);
   const matcher = new RegExpMatcher({
@@ -200,16 +200,7 @@ export default function Board({ puzzles }: { puzzles: PuzzleZype[] }) {
           </div>
         )}
         <div className="w-[50%] mx-auto ">
-          {/* {(turnLimitReached || gameOver) && (
-            <div className="absolute z-10 w-[65%] flex items-center justify-center">
-              <div className="">
-                <p className="text-red-400 bg-black">Sim over</p>
-                <p className="text-red-400 bg-black">Score: {`${score}`}</p>
-              </div>
-            </div>
-          )} */}
           <Chessboard
-            // boardWidth={Math.min(window.innerWidth, window.innerHeight)}
             position={fen}
             autoPromoteToQueen={true}
             arePiecesDraggable={false}
@@ -319,7 +310,11 @@ export default function Board({ puzzles }: { puzzles: PuzzleZype[] }) {
                 e.currentTarget.style.height = "auto";
                 e.currentTarget.style.height = `${e.currentTarget.scrollHeight}px`;
               }}
-              readOnly={started || turnLimitReached ? true : false}
+              readOnly={
+                started || turnLimitReached || turnLimitReached || gameOver
+                  ? true
+                  : false
+              }
               maxLength={255}
               value={prompt}
             />
