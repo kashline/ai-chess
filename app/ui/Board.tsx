@@ -327,7 +327,7 @@ export default function Board({ puzzles }: { puzzles: PuzzleZype[] }) {
         </div>
         <HistoryLog />
         {/* Results */}
-        {(turnLimitReached && gameOver) && (
+        {turnLimitReached && (
           <Results
             score={score}
             model={model}
@@ -336,7 +336,11 @@ export default function Board({ puzzles }: { puzzles: PuzzleZype[] }) {
             turnsRemaining={turnsRemaining}
           />
         )}
-        {turnLimitReached !== gameOver && <div className="text-chili-red">Game ended before all turns were taken! Invalid run.</div>}
+        {gameOver && turnLimitReached !== gameOver && (
+          <div className="text-chili-red">
+            Game ended before all turns were taken! Invalid run.
+          </div>
+        )}
       </div>
     </div>
   );

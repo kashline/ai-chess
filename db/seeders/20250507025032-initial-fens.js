@@ -5,12 +5,6 @@ module.exports = {
   up: async (queryInterface) => {
     return queryInterface.bulkInsert('Puzzles', [
       {
-        title: "The Corner Trap",
-        fen: "7k/5K2/5P2/8/8/8/8/8 w - - 0 1",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
         title: "Storm Breaker",
         fen: "r1b1kb1r/pppp1ppp/2n2n2/4p3/2B1P3/2NP1N2/PPP2PPP/R1BQK2R w KQkq - 2 5",
         createdAt: new Date(),
