@@ -7,7 +7,6 @@ import User from "@/app/data/models/User";
  */
 export const POST = async (request: Request) => {
   try {
-    await User.sync();
     const user = await request.json();
     const res = await User.findOrCreate({
       where: {

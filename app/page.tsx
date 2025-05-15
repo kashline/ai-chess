@@ -1,17 +1,11 @@
 "use server";
 
 import Puzzle from "@/app/data/models/Puzzle";
-import User from "@/app/data/models/User";
-import UserScore from "@/app/data/models/UserScore";
 import { PuzzleZodel } from "@/app/data/zodels/PuzzleZodel";
 import Board from "@/app/ui/Board";
-// import HistoryLog from "@/app/ui/HistoryLog";
 import * as React from "react";
 
 export default async function Page() {
-  await User.sync();
-  await Puzzle.sync();
-  await UserScore.sync();
   const puzzles = (await Puzzle.findAll()).map((puzzle) => {
     return PuzzleZodel.parse(puzzle);
   });

@@ -4,8 +4,6 @@ import Puzzle from "@/app/data/models/Puzzle";
 
 export const GET = async () => {
   try {
-    await User.sync();
-    await UserScore.sync();
     const res = await UserScore.findAll({
       order: [["score", "ASC"]],
       include: [{ model: Puzzle }, { model: User }],
