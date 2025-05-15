@@ -12,12 +12,7 @@ import Pagination from "@/app/ui/Pagination";
 import { redirect } from "next/navigation";
 
 export default async function Page({ searchParams }: {searchParams: Promise<{ [key: string]: string }>}) {
-  await User.sync();
-  await UserScore.sync();
-  await Puzzle.sync();
-  // This needs to be awaited: https://nextjs.org/docs/messages/sync-dynamic-apis
   const { model, PuzzleId, page, pageSize } = await searchParams;
-  // Not sure how else to cast this as a number
   const pageSizeNumber = Number(pageSize);
   const whereClause = {};
   if (model) {
