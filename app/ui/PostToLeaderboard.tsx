@@ -20,7 +20,6 @@ export default function PostToLeaderboard({
   puzzleId: number;
 }) {
   const reduxUser = useAppSelector((state) => state.user);
-  console.log(reduxUser)
   const [res, setRes] = React.useState<boolean | null>(null);
   const userScore: UserScoreZype = UserScoreZodel.parse({
     score: score,
