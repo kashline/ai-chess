@@ -49,7 +49,7 @@ export default async function Page({ searchParams }: {searchParams: Promise<{ [k
   });
   const totalPages = Math.ceil(res.count / pageSizeNumber);
   return (
-    <div className="">
+    <div className="mx-10">
       <Leaderboard scores={scores} puzzles={puzzles} />
       <div className="flex">
         <div className="mx-auto">
