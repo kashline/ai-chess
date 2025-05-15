@@ -27,13 +27,14 @@ export default function Leaderboard({
     } else {
       params.delete(key);
     }
-    // Update URL with new query string
     router.push(`?${params.toString()}`);
   };
   const page = Number(searchParams.get("page"));
   const pageSize = Number(searchParams.get("pageNumber"));
-  const puzzle = Number(searchParams.get("PuzzleId")) - 1;
-  const [startingPuzzle, setStartingPuzzle] = React.useState(puzzles[puzzle]);
+  const puzzle = Number(searchParams.get("PuzzleId"));
+  const [startingPuzzle, setStartingPuzzle] = React.useState(
+    puzzles.find((ipuzzle) => ipuzzle.id === puzzle)
+  );
   return (
     <div>
       <div className="flex">

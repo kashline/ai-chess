@@ -24,7 +24,7 @@ export default async function Page({ searchParams }: {searchParams: Promise<{ [k
   if (!page || !pageSize || !model || !PuzzleId) {
     const safeParams = new URLSearchParams({
       model: model || "gpt-4o-mini",
-      PuzzleId: PuzzleId || "1",
+      PuzzleId: PuzzleId || "2",
       page: page || "1",
       pageSize: pageSize || "20",
     });
