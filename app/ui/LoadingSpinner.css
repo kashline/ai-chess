@@ -1,0 +1,85 @@
+.pawn-spinner {
+    position: relative;
+    width: 100px;
+    height: 150px;
+    margin: 100px auto;
+  }
+  
+  /* Dot base style */
+  .dot {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #2c3e50;
+    border-radius: 50%;
+    animation: blink 1.2s ease-in-out infinite;
+    opacity: 0.4;
+  }
+  
+  /* HEAD */
+  .head {
+    top: 0px;
+    left: 44px;
+    animation-delay: 0s;
+  }
+  
+  /* NECK */
+  .neck {
+    top: 15px;
+    left: 44px;
+    animation-delay: 0.1s;
+  }
+  
+  /* SHOULDERS */
+  .shoulder-left {
+    top: 30px;
+    left: 36px;
+    animation-delay: 0.2s;
+  }
+  .shoulder-right {
+    top: 30px;
+    left: 52px;
+    animation-delay: 0.2s;
+  }
+  
+  /* BODY */
+  .body-left {
+    top: 50px;
+    left: 32px;
+    animation-delay: 0.3s;
+  }
+  .body-right {
+    top: 50px;
+    left: 56px;
+    animation-delay: 0.3s;
+  }
+  
+  /* BASE */
+  .base-left {
+    top: 70px;
+    left: 28px;
+    animation-delay: 0.4s;
+  }
+  .base-right {
+    top: 70px;
+    left: 60px;
+    animation-delay: 0.4s;
+  }
+  .base-center {
+    top: 80px;
+    left: 44px;
+    animation-delay: 0.45s;
+  }
+  
+  /* Animation */
+  @keyframes blink {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.4);
+    }
+  }
+  

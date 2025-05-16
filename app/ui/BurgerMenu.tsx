@@ -8,6 +8,7 @@ import ProfileIcon from "@/app/ui/icons/ProfileIcon";
 import { useAppSelector } from "@/app/store/hooks";
 import BurgerMenuSignout from "@/app/ui/BurgerMenuSignout";
 import BurgerMenuSignin from "@/app/ui/BurgerMenuSignin";
+import LeaderboardIcon from "@/app/ui/icons/LeaderboardIcon";
 
 /**
  * Burger menu for navigating the site.  Provides links dependent on session validation
@@ -56,37 +57,21 @@ export default function BurgerMenu() {
               href="/"
               Icon={HomeIcon({ fill: "#eee5e9", width: 25, height: 25 })}
             />
-            {/* <BurgerMenuButton
-              title="Browse Recipes"
-              href="/recipes"
-              Icon={BurgerMenuIcon({ fill: "#eee5e9", width: 25, height: 25 })}
-            /> */}
             <BurgerMenuButton
-              title="Profile"
-              href="/profile/"
-              Icon={ProfileIcon({ fill: "#eee5e9", width: 25, height: 25 })}
+              title="Leaderboard"
+              href="/leaderboard/"
+              Icon={LeaderboardIcon({ fill: "#eee5e9", width: 25, height: 25 })}
             />
           </ul>
           {user.user && (
             <div>
-              {" "}
               <hr className="h-0.5 border-b-lavendar-blush" />
               <ul>
                 <BurgerMenuButton
-                  title="Leaderboard"
-                  href="/leaderboard/"
+                  title="Profile"
+                  href="/profile/"
                   Icon={ProfileIcon({ fill: "#eee5e9", width: 25, height: 25 })}
                 />
-                {/* <BurgerMenuButton
-                  title="My Recipes"
-                  href="/profile/recipes"
-                  Icon={RecipeIcon({ fill: "#eee5e9", width: 25, height: 25 })}
-                />
-                <BurgerMenuButton
-                  title="New Recipe"
-                  href="/recipes/create"
-                  Icon={EditIcon({ fill: "#eee5e9", width: 25, height: 25 })}
-                /> */}
               </ul>
               <BurgerMenuSignout />
             </div>
