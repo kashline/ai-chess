@@ -15,7 +15,7 @@ export default function Results({
   prompt: string;
   turnsRemaining: number;
 }) {
-  const user = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.user);
   return (
     <div className="border-2 bg-[#7af07a96] rounded-xl py-2">
       <div className="flex">
@@ -57,6 +57,13 @@ export default function Results({
             model={model}
             turnsRemaining={turnsRemaining}
           />
+        </div>
+      )}
+      {!user && (
+        <div className="text-lavendar-blush flex">
+          <span className="mx-auto">
+            Create an account to post this result to the leaderboard
+          </span>
         </div>
       )}
     </div>
