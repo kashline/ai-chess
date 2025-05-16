@@ -1,10 +1,8 @@
 export default function ChevronLeftIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
-      height="32"
       id="chevron-left"
       viewBox="0 0 32 32"
-      width="32"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >

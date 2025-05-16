@@ -28,47 +28,81 @@ export default function HistoryLog() {
           className="w-full flex items-center justify-between px-4 py-2"
           onClick={() => setIsOpen(!isOpen)}
         >
-          <span className="text-lavendar-blush">History</span>
-          {!isOpen && <ChevronLeftIcon className="stroke-lavendar-blush" />}
-          {isOpen && <ChevronDownIcon className="stroke-lavendar-blush"/>}
+          <span className="text-lavendar-blush">Move History</span>
+          {!isOpen && (
+            <ChevronLeftIcon
+              className="stroke-lavendar-blush"
+              width={25}
+              height={25}
+            />
+          )}
+          {isOpen && (
+            <ChevronDownIcon
+              className="stroke-lavendar-blush"
+              width={25}
+              height={25}
+            />
+          )}
         </button>
       </div>
       {isOpen && (
         <div className="w-full max-h-svh overflow-y-auto text-lavendar-blush p-2 rounded shadow-inner font-mono text-sm bg-gunmetal">
           <div className="w-full h-px bg-lavendar-blush my-4" />
-          {history.length === 0 && <div><span>No history</span></div>}
-          {history.length !== 0 && history.map(
-            (
-              event: {
-                move: string;
-                explanation: string;
-                rating: string;
-                bestmove: string;
-                scoreDifference: string;
-              },
-              index: number
-            ) => {
-              const ratingColor = ratingColors.get(event.rating);
-              if (index % 2 !== 0) {
-                return;
-              }
-              return (
-                <div key={index} className="border-2">
-                  <div className="flex">
-                    <p className="mx-auto">
-                      {index + 1}. {event.move} {event.bestmove}
-                    </p>
-                  </div>
-                  <div className="flex">
-                    <p className={`mx-auto ${ratingColor}`}>
-                      {event.rating} Score {event.scoreDifference}
-                    </p>
-                  </div>
-                  <div>{event.explanation}</div>
-                </div>
-              );
-            }
-          )}
+          <div className="border-1 rounded-md">
+            {history.length === 0 && (
+              <div>
+                <span>No history</span>
+              </div>
+            )}
+            {history.length !== 0 &&
+              history.map(
+                (
+                  event: {
+                    move: string;
+                    explanation: string;
+                    rating: string;
+                    bestmove: string;
+                    scoreDifference: string;
+                  },
+                  index: number
+                ) => {
+                  const ratingColor = ratingColors.get(event.rating);
+                  if (index % 2 !== 0) {
+                    return (
+                      <div key={index} className="border-1">
+                        <div className="flex">
+                          <p className="mx-auto">
+                            {index + 1}. {event.move}
+                          </p>
+                        </div>
+                        <div className="flex">
+                          <p className={`mx-auto ${ratingColor}`}>
+                            Opponent move
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  }
+                  return (
+                    <div key={index} className="">
+                      <div className="flex">
+                        <p className="mx-auto">
+                          {index + 1}. {event.move} {event.bestmove}
+                        </p>
+                      </div>
+                      <div className="flex">
+                        <p className={`mx-auto ${ratingColor}`}>
+                          {event.rating} Score {event.scoreDifference}
+                        </p>
+                      </div>
+                      <div className="flex">
+                        <div className="mx-auto">{event.explanation}</div>
+                      </div>
+                    </div>
+                  );
+                }
+              )}
+          </div>
           <div ref={logEndRef}></div>
         </div>
       )}

@@ -20,7 +20,7 @@ export const models = ["gpt-4o-mini", "gpt-4.1-mini", "gpt-4.1", "o4-mini"];
 
 export default function Board({ puzzles }: { puzzles: PuzzleZype[] }) {
   const dispatch = useAppDispatch();
-  const maxTurns = 1;
+  const maxTurns = 10;
   const [score, setScore] = React.useState(0);
   const [isInputValid, setIsInputValid] = React.useState(true);
   const matcher = new RegExpMatcher({
