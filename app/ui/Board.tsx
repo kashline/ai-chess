@@ -151,7 +151,7 @@ export default function Board({ puzzles }: { puzzles: PuzzleZype[] }) {
     turnLimitReached,
   ]);
   return (
-    <div className="w-[60%] mx-auto">
+    <div className="min-w-md mx-auto">
       {/* In progress overlay */}
       {started && !gameOver && (
         <div

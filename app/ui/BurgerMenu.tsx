@@ -52,26 +52,55 @@ export default function BurgerMenu() {
       >
         <nav className="">
           <ul className="">
-            <BurgerMenuButton
-              title="Home"
-              href="/"
-              Icon={HomeIcon({ fill: "#eee5e9", width: 25, height: 25 })}
-            />
-            <BurgerMenuButton
-              title="Leaderboard"
-              href="/leaderboard/"
-              Icon={LeaderboardIcon({ fill: "#eee5e9", width: 25, height: 25 })}
-            />
+            <button
+              onClick={() => {
+                setMenuToggle(false);
+              }}
+              className="w-full"
+            >
+              <BurgerMenuButton
+                title="Home"
+                href="/"
+                Icon={HomeIcon({ fill: "#eee5e9", width: 25, height: 25 })}
+              />
+            </button>
+            <button
+              onClick={() => {
+                setMenuToggle(false);
+              }}
+              className="w-full"
+            >
+              <BurgerMenuButton
+                title="Leaderboard"
+                href="/leaderboard/"
+                Icon={LeaderboardIcon({
+                  fill: "#eee5e9",
+                  width: 25,
+                  height: 25,
+                })}
+              />
+            </button>
           </ul>
           {user.user && (
             <div>
               <hr className="h-0.5 border-b-lavendar-blush" />
               <ul>
-                <BurgerMenuButton
-                  title="Profile"
-                  href="/profile/"
-                  Icon={ProfileIcon({ fill: "#eee5e9", width: 25, height: 25 })}
-                />
+                <button
+                  onClick={() => {
+                    setMenuToggle(false);
+                  }}
+                  className="w-full"
+                >
+                  <BurgerMenuButton
+                    title="Profile"
+                    href="/profile/"
+                    Icon={ProfileIcon({
+                      fill: "#eee5e9",
+                      width: 25,
+                      height: 25,
+                    })}
+                  />
+                </button>
               </ul>
               <BurgerMenuSignout />
             </div>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import * as React from "react";
 
 export default function BurgerMenuButton({
@@ -10,7 +11,7 @@ export default function BurgerMenuButton({
   title: string;
 }) {
   return (
-    <a href={href} className={`text-lavendar-blush hover:text-non-photo-blue`}>
+    <Link href={href} className={`text-lavendar-blush hover:text-non-photo-blue`}>
       <li
         className={`flex gap-2 hover:border-solid hover:border-non-photo-blue hover:border-2 border-2 border-transparent rounded-lg w-full my-auto h-14`}
       >
@@ -19,6 +20,6 @@ export default function BurgerMenuButton({
           {title}
         </div>
       </li>
-    </a>
+    </Link>
   );
 }

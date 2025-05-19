@@ -4,12 +4,10 @@ import Puzzle from "@/app/data/models/Puzzle";
 import User from "@/app/data/models/User";
 import UserScore from "@/app/data/models/UserScore";
 import { PuzzleZodel } from "@/app/data/zodels/PuzzleZodel";
-import { UserScoreZodel } from "@/app/data/zodels/UserScoreZodel";
-import { UserZodel } from "@/app/data/zodels/UserZodel";
-import Leaderboard from "@/app/ui/Leaderboard";
+import UserScoreHistory from "@/app/profile/UserScoreHistory";
 import LeaderboardButtons from "@/app/ui/LeaderboardButtons";
-import PageSizeSelector from "@/app/ui/PageSizeSelector";
 import Pagination from "@/app/ui/Pagination";
+import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
 export default async function Page({
@@ -17,9 +15,13 @@ export default async function Page({
 }: {
   searchParams: Promise<{ [key: string]: string }>;
 }) {
+  const session = await auth();
+  const { id } = (
+    await User.findOne({ where: { email: session?.user?.email } })
+  )?.dataValues;
   const { model, PuzzleId, page, pageSize } = await searchParams;
   const pageSizeNumber = Number(pageSize);
-  const whereClause = {};
+  const whereClause = { UserId: id };
   if (model) {
     Object.assign(whereClause, { model: model });
   }
@@ -33,41 +35,31 @@ export default async function Page({
       page: page || "1",
       pageSize: pageSize || "20",
     });
-    redirect(`/leaderboard?${safeParams.toString()}`);
+    redirect(`/profile/scores?${safeParams.toString()}`);
   }
   const res = await UserScore.findAndCountAll({
     order: [["score", "ASC"]],
     where: whereClause,
-    include: [{ model: Puzzle }, { model: User }],
+    include: [{ model: Puzzle }],
     limit: pageSizeNumber,
     offset: (Number(page) - 1) * pageSizeNumber,
   });
+  const userScores = res.rows.map((score) => score.dataValues);
   const puzzles = (await Puzzle.findAll()).map((puzzle) => {
     return PuzzleZodel.parse(puzzle);
   });
-  const scores = res.rows.map((score) => {
-    return {
-      userScore: UserScoreZodel.parse(score),
-      puzzle: PuzzleZodel.parse(score.dataValues.Puzzle.dataValues),
-      user: UserZodel.parse(score.dataValues.User.dataValues),
-    };
-  });
   const totalPages = Math.ceil(res.count / pageSizeNumber);
   return (
-    <div className="mx-10">
+    <div className="mx-10 text-lavendar-blush">
       <div className="flex">
-        <h1 className="mx-auto text-4xl">Leaderboard</h1>
+        <h1 className="mx-auto text-4xl">My scores</h1>
       </div>
+
       <LeaderboardButtons puzzles={puzzles} />
-      <Leaderboard scores={scores} />
-      <div className="flex">
+      <UserScoreHistory userScores={userScores} />
+      <div className="flex my-6">
         <div className="mx-auto">
           <Pagination totalPages={totalPages} />
-        </div>
-      </div>
-      <div className="flex">
-        <div className="mx-auto">
-          <PageSizeSelector />
         </div>
       </div>
     </div>

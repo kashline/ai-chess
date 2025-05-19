@@ -1,5 +1,6 @@
 "use client";
 
+import ProfileLoadingSkeleton from "@/app/profile/ProfileLoadingSkeleton";
 import { useAppSelector } from "@/app/store/hooks";
 import Button from "@/app/ui/Button";
 import EditIcon from "@/app/ui/icons/EditIcon";
@@ -59,9 +60,9 @@ export default function ProfileInfo() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   });
-  if (!user) return <p>Loading...</p>;
+  if (!user) return <ProfileLoadingSkeleton className="max-w-md min-w-sm h-[356]" />;
   return (
-    <div className="max-w-md mx-auto p-6">
+    <div className="max-w-md min-w-sm mx-auto p-6">
       <div className="flex gap-6">
         <strong className="text-4xl my-auto">Welcome, {user.username}!</strong>
         <div className="mt-2">

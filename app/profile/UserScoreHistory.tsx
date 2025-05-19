@@ -1,28 +1,25 @@
 "use server";
 
-import User from "@/app/data/models/User";
-import UserScore from "@/app/data/models/UserScore";
 import { UserScoreZype } from "@/app/data/zodels/UserScoreZodel";
-import { auth } from "@/auth";
 
-export default async function UserScoreHistory() {
-  const session = await auth();
-  const { id } = (
-    await User.findOne({ where: { email: session?.user?.email } })
-  )?.dataValues;
-  const userScores = (await UserScore.findAll({ where: { UserId: id } })).map(
-    (score) => score.dataValues
-  );
+export default async function UserScoreHistory({
+  userScores,
+}: {
+  userScores: UserScoreZype[];
+}) {
   if (userScores.length === 0) {
-    return <p>No scores available.</p>;
+    return (
+      <div className="flex">
+        <p className="mx-auto">No scores available.</p>
+      </div>
+    );
   }
   const columns: (keyof Pick<
     UserScoreZype,
-    "score" | "model" | "prompt" | "createdAt"
-  >)[] = ["score", "model", "prompt", "createdAt"];
+    "score" | "prompt" | "createdAt"
+  >)[] = ["score", "prompt", "createdAt"];
 
-  const formatDateTime = (iso: string) => {
-    const date = new Date(iso);
+  const formatDateTime = (date: Date) => {
     return date.toLocaleString(undefined, {
       year: "2-digit",
       month: "2-digit",
@@ -35,14 +32,8 @@ export default async function UserScoreHistory() {
 
   return (
     <div className="">
-      <div className="flex">
-        <h1 className="mx-auto text-4xl my-2 text-lavendar-blush">
-          Score History
-        </h1>
-      </div>
-
       <div className="flex w-full">
-        <table className="border-collapse w-[80%] mx-auto">
+        <table className="border-collapse w-[60%] mx-auto">
           <thead>
             <tr>
               {columns.map((key) => (
@@ -67,7 +58,7 @@ export default async function UserScoreHistory() {
                       key === "createdAt" ? "text-right" : null
                     }`}
                   >
-                    {key === "createdAt"
+                    {key === "createdAt" && score[key]
                       ? formatDateTime(score[key])
                       : score[key]?.toString()}
                   </td>
