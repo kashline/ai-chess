@@ -9,6 +9,9 @@ export default function HistoryLog() {
   const { history } = useAppSelector((state) => state.chess);
   const logEndRef = React.useRef<HTMLDivElement | null>(null);
   const [isOpen, setIsOpen] = React.useState(false);
+  const contentRef = React.useRef<HTMLDivElement | null>(null);
+  const containerRef = React.useRef<HTMLDivElement | null>(null);
+  const [height, setHeight] = React.useState("0px");
   const ratingColors = new Map<string, string>([
     ["Brilliant move", "text-brilliant-teal"],
     ["Great move", "text-great-blue"],
@@ -21,8 +24,15 @@ export default function HistoryLog() {
   React.useEffect(() => {
     logEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [history]);
+  React.useEffect(() => {
+    if (isOpen && contentRef.current) {
+      setHeight(`${contentRef.current.scrollHeight}px`);
+    } else {
+      setHeight("0px");
+    }
+  }, [isOpen, history]);
   return (
-    <div>
+    <div className="pb-6">
       <div className="w-full bg-gunmetal">
         <button
           className="w-full flex items-center justify-between px-4 py-2"
@@ -45,8 +55,16 @@ export default function HistoryLog() {
           )}
         </button>
       </div>
-      {isOpen && (
-        <div className="w-full max-h-svh overflow-y-auto text-lavendar-blush p-2 rounded shadow-inner font-mono text-sm bg-gunmetal">
+      <div
+        ref={containerRef}
+        style={{
+          height,
+          transition: "height 0.4s ease",
+          overflow: "hidden",
+        }}
+        className="w-full text-lavendar-blush bg-gunmetal rounded shadow-inner font-mono text-sm"
+      >
+        <div ref={contentRef} className="p-2">
           <div className="w-full h-px bg-lavendar-blush my-4" />
           <div className="border-1 rounded-md">
             {history.length === 0 && (
@@ -103,9 +121,9 @@ export default function HistoryLog() {
                 }
               )}
           </div>
-          <div ref={logEndRef}></div>
         </div>
-      )}
+        <div ref={logEndRef}></div>
+      </div>
     </div>
   );
 }
