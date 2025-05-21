@@ -5,11 +5,29 @@ import UserScore from "@/app/data/models/UserScore";
 import MoreScoresButton from "@/app/profile/MoreScoresButton";
 import ProfileInfo from "@/app/profile/ProfileInfo";
 import UserScoreHistory from "@/app/profile/UserScoreHistory";
+import Button from "@/app/ui/Button";
 import { auth } from "@/auth";
+import Link from "next/link";
 import * as React from "react";
 
 export default async function ProfilePage() {
   const session = await auth();
+  if (!session) {
+    return (
+      <div className="flex pt-10">
+        <div className="mx-auto my-auto">
+          <p className="text-lavendar-blush">
+            You must be logged in to view this page.
+          </p>
+          <div className="">
+            <Button className="">
+              <Link href={`/`}>Go home</Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
   const { id } = (
     await User.findOne({ where: { email: session?.user?.email }, limit: 10 })
   )?.dataValues;
