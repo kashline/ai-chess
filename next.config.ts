@@ -2,6 +2,7 @@ module.exports = {
   images: {
     domains: [
       "lh3.googleusercontent.com",
+      "localhost"
     ],
     formats: ["image/webp"],
     minimumCacheTTL: 2678400,

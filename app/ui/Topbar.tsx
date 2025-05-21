@@ -10,28 +10,18 @@ import ProfileButton from "@/app/ui/ProfileButton";
  */
 export default async function DefaultTopbar() {
   return (
-    <div
-      style={{ display: "flex", position: "sticky", top: 0 }}
-      className="bg-gradient-to-tr from-black via-gunmetal to-black z-10 h-[42px]"
-    >
+    <header className="w-full bg-black text-white shadow-md z-50 flex sticky top-0">
       <BurgerMenu />
-      <div
-        style={{
-          display: "flex",
-          width: "100%",
-          border: "none",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <div className="flex w-full border-none justify-center items-center">
         <Link href={"/"}>
-          <p style={{ fontSize: "100%", color: "white" }}>AI Chess</p>
+          <p className="text-lg font-semibold tracking-tight text-lavendar-blush">
+            AI Chess
+          </p>
         </Link>
       </div>
-      <div style={{ paddingLeft: "" }}>
+      <div>
         <ProfileButton />
       </div>
-      
-    </div>
+    </header>
   );
 }

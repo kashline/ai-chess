@@ -20,7 +20,7 @@ export default async function ProfileButton() {
           marginRight: 2,
           marginTop: 2,
         }}
-        href={user ? "/api/auth/signout" : "/api/auth/signin"}
+        href={user ? "/profile" : "/api/auth/signin"}
       >
         {user && (
           <Image

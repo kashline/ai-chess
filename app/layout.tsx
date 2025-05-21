@@ -8,6 +8,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import AuthSync from "@/app/util/AuthSync";
 import { SessionProvider } from "next-auth/react";
 import CreateUsernameBanner from "@/app/ui/CreateUsernameBanner";
+import BottomBar from "@/app/ui/BottomBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,10 +39,11 @@ export default function RootLayout({
           >
             <Topbar />
             <CreateUsernameBanner />
-            <div className="my-6">{children}</div>
+            <div className="">{children}</div>
             <Analytics />
             <SpeedInsights />
             <AuthSync />
+            <BottomBar />
           </body>
         </SessionProvider>
       </Providers>
