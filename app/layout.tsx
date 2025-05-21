@@ -39,7 +39,7 @@ export default function RootLayout({
           >
             <Topbar />
             <CreateUsernameBanner />
-            <div className="">{children}</div>
+            <div style={{ minHeight: "calc(100vh - 100px)" }}>{children}</div>
             <Analytics />
             <SpeedInsights />
             <AuthSync />
