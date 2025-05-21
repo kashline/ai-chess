@@ -15,6 +15,9 @@ export default function Leaderboard({
   const searchParams = useSearchParams();
   const page = Number(searchParams.get("page"));
   const pageSize = Number(searchParams.get("pageNumber"));
+  if (scores.length === 0){
+    return(<div className="flex"><span className="mx-auto my-4">No scores yet.  Create one!</span></div>)
+  }
   return (
     <div>
       <div>
