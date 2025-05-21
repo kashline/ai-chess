@@ -29,7 +29,7 @@ export default function Page() {
           <Image
             className="mx-auto"
             alt="adorable cat in a chair"
-            src={`${process.env.NEXT_PUBLIC_BASE_URL}/hobbes-chair.jpg`}
+            src={`/hobbes-chair.jpg`}
             width={250}
             height={1}
           />

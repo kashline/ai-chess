@@ -8,7 +8,7 @@ export default async function Page() {
       <div
         className="h-svh "
         style={{
-          background: `url(${process.env.NEXT_PUBLIC_BASE_URL}/chessboard-opaque.png)`,
+          background: `url(/chessboard-opaque.png)`,
           backgroundAttachment: "fixed",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -68,7 +68,7 @@ export default async function Page() {
       <div
         className="h-svh"
         style={{
-          background: `url(${process.env.NEXT_PUBLIC_BASE_URL}/leaderboard-opaque.png)`,
+          background: `url(/leaderboard-opaque.png)`,
           backgroundAttachment: "fixed",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
