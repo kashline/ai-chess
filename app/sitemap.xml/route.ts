@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
   console.log(siteUrl)
 
   const staticPaths = ["", "contact", "play", "leaderboard", "profile"];
