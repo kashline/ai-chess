@@ -2,7 +2,8 @@ module.exports = {
   images: {
     domains: [
       "lh3.googleusercontent.com",
-      "localhost"
+      "localhost",
+      "ai-chess-xi.vercel.app"
     ],
     formats: ["image/webp"],
     minimumCacheTTL: 2678400,
