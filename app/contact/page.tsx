@@ -13,7 +13,7 @@ export default function Page() {
               to contact us!
             </p>
             <Button>
-              <Link href="mailto:aichess@gmail.com?subject=Feature/Bug">
+              <Link href="mailto:aichessiscool@gmail.com?subject=Feature/Bug">
                 Contact Us
               </Link>
             </Button>
