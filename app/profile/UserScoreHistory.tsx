@@ -16,8 +16,8 @@ export default async function UserScoreHistory({
   }
   const columns: (keyof Pick<
     UserScoreZype,
-    "score" | "prompt" | "createdAt"
-  >)[] = ["score", "prompt", "createdAt"];
+    "score" | "prompt" | "model" | "createdAt"
+  >)[] = ["score", "prompt", "model", "createdAt"];
 
   const formatDateTime = (date: Date) => {
     return date.toLocaleString(undefined, {
