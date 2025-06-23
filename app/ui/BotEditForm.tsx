@@ -2,20 +2,26 @@
 
 import { BotZype, CreateBotZype } from "@/app/data/zodels/BotZodel";
 import Button from "@/app/ui/Button";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Dispatch, SetStateAction } from "react";
 
 type BotEditFormProps = {
   bot: BotZype | CreateBotZype;
   onSubmit: (data: CreateBotZype | BotZype) => void | Promise<void>;
+  status: "idle" | "submitting" | "success" | "error";
+  setStatus: Dispatch<
+    SetStateAction<"idle" | "submitting" | "success" | "error">
+  >;
 };
 
-export default function BotEditForm({ bot, onSubmit }: BotEditFormProps) {
+export default function BotEditForm({
+  bot,
+  onSubmit,
+  status,
+  setStatus
+}: BotEditFormProps) {
   const [name, setName] = useState(bot.Name);
   const [prompt, setPrompt] = useState(bot.Prompt);
   const [errors, setErrors] = useState<{ name?: string; prompt?: string }>({});
-  const [status, setStatus] = useState<
-    "idle" | "submitting" | "success" | "error"
-  >("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,7 +41,6 @@ export default function BotEditForm({ bot, onSubmit }: BotEditFormProps) {
       setStatus("submitting");
       try {
         await onSubmit(data);
-        setStatus("success");
       } catch (error) {
         console.log(`There was an error submitting bot: ${error}`);
         setStatus("error");
