@@ -29,33 +29,57 @@ export default async function Page() {
   const bots = await Bot.findAll({ where: { UserID: userId } });
   return (
     <div className="p-4">
-      <h2 className="text-xl font-semibold mb-4">Your Bots</h2>
       <div className="overflow-x-auto">
-        <table className="min-w-full border rounded shadow-sm">
-          <thead className="bg-gunmetal">
-            <tr>
-              <th className="px-4 py-2 border">Name</th>
-              <th className="px-4 py-2 border">Model</th>
-              <th className="px-4 py-2 border">Prompt</th>
-              <th className="px-4 py-2 border">Remaining Games</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bots.map((bot) => (
-              <tr key={bot.dataValues.id} className="">
-                <td className="px-4 py-2 border">{bot.dataValues.Name}</td>
-                <td className="px-4 py-2 border">{bot.dataValues.Model}</td>
-                <td className="px-4 py-2 border">{bot.dataValues.Prompt}</td>
-                <td className="px-4 py-2 border">
-                  {bot.dataValues.RemainingGames}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <Link href={"/bots/create"}>
-          <Button>New Bot</Button>
-        </Link>
+        {bots.length !== 0 && (
+          <div>
+            <h2 className="text-xl font-semibold mb-4">Your Bots</h2>
+            <table className="min-w-full border rounded shadow-sm">
+              <thead className="bg-gunmetal">
+                <tr>
+                  <th className="px-4 py-2 border">Name</th>
+                  <th className="px-4 py-2 border">Model</th>
+                  <th className="px-4 py-2 border">Prompt</th>
+                  <th className="px-4 py-2 border">Remaining Games</th>
+                </tr>
+              </thead>
+              <tbody>
+                {bots.map((bot) => (
+                  <tr key={bot.dataValues.id} className="">
+                    <td className="px-4 py-2 border">{bot.dataValues.Name}</td>
+                    <td className="px-4 py-2 border">{bot.dataValues.Model}</td>
+                    <td className="px-4 py-2 border">
+                      {bot.dataValues.Prompt}
+                    </td>
+                    <td className="px-4 py-2 border">
+                      {bot.dataValues.RemainingGames}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+        {bots.length === 0 && (
+          <div>
+            <div className="flex">
+              <h1 className="text-2xl mx-auto">Welcome to your bots page</h1>
+            </div>
+            <div className="flex py-10">
+              <p className="mx-auto">
+                A bot will run a number of chess scenarios for you on its own.
+                Come back each day and see how your bot did!
+              </p>
+            </div>
+            <div className="flex">
+              <p className="mx-auto">Create a new bot to get started</p>
+            </div>
+          </div>
+        )}
+        <div className="flex py-5">
+          <Link className="mx-auto" href={"/bots/create"}>
+            <Button>New Bot</Button>
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -72,8 +72,8 @@ export default function BurgerMenu() {
               className="w-full"
             >
               <BurgerMenuButton
-                title="Play"
-                href="/play/"
+                title="Practice"
+                href="/practice/"
                 Icon={QueenIcon({
                   fill: "#eee5e9",
                   width: 25,
