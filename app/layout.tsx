@@ -9,6 +9,7 @@ import AuthSync from "@/app/util/AuthSync";
 import { SessionProvider } from "next-auth/react";
 import CreateUsernameBanner from "@/app/ui/CreateUsernameBanner";
 import BottomBar from "@/app/ui/BottomBar";
+import ClientWrapper from "@/app/util/ClientWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,7 +40,9 @@ export default function RootLayout({
           >
             <Topbar />
             <CreateUsernameBanner />
-            <div style={{ minHeight: "calc(100vh - 100px)" }}>{children}</div>
+            <ClientWrapper>
+              <div style={{ minHeight: "calc(100vh - 100px)" }}>{children}</div>
+            </ClientWrapper>
             <Analytics />
             <SpeedInsights />
             <AuthSync />

@@ -9,13 +9,13 @@ import type { AppDispatch } from "@/app/store/store";
 const AuthSync = () => {
   const { data: session, status } = useSession();
   const dispatch = useDispatch<AppDispatch>();
-
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const res = await fetch(`/api/user/data?email=${session?.user?.email}`);
         if (!res.ok) throw new Error("Failed to fetch user");
         const data = await res.json();
+        // Since the user endpoint is setting a cookie this might be unnecessary 
         dispatch(setUser(data));
       } catch (err) {
         console.error("AuthSync error:", err);

@@ -9,6 +9,7 @@ import BurgerMenuSignout from "@/app/ui/BurgerMenuSignout";
 import BurgerMenuSignin from "@/app/ui/BurgerMenuSignin";
 import LeaderboardIcon from "@/app/ui/icons/LeaderboardIcon";
 import QueenIcon from "@/app/ui/icons/QueenIcon";
+import RobotFace from "@/app/ui/icons/RobotFace";
 
 /**
  * Burger menu for navigating the site.  Provides links dependent on session validation
@@ -102,6 +103,22 @@ export default function BurgerMenu() {
             <div>
               <hr className="h-0.5 border-b-lavendar-blush" />
               <ul>
+                <button
+                  onClick={() => {
+                    setMenuToggle(false);
+                  }}
+                  className="w-full"
+                >
+                  <BurgerMenuButton
+                    title="Bots"
+                    href="/bots/"
+                    Icon={RobotFace({
+                      fill: "#eee5e9",
+                      width: 25,
+                      height: 25,
+                    })}
+                  />
+                </button>
                 <button
                   onClick={() => {
                     setMenuToggle(false);
