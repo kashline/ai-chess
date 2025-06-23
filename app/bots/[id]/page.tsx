@@ -8,13 +8,11 @@ import { auth } from "@/auth";
 import { cookies } from "next/headers";
 import Link from "next/link";
 
-type PageProps = {
-  params: {
-    id: string;
-  };
-};
-
-export default async function Page({ params }: PageProps) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
   const userId = (await cookies()).get("userId")?.value;
   const session = await auth();
