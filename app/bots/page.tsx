@@ -69,8 +69,7 @@ export default async function Page() {
                       {
                         // Hacky type assertion to get around latest_rating not being on the bot type
                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        (bot as any).dataValues.latest_rating.dataValues
-                          .latest_rating
+                        (bot as any).dataValues.latest_rating
                           ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
                             (bot as any).dataValues.latest_rating.dataValues
                               .latest_rating
