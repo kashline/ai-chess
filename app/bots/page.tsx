@@ -41,7 +41,6 @@ export default async function Page() {
       ratings.set(bot.id, rating?.dataValues.latest_rating);
     })
   );
-  console.log(ratings);
   return (
     <div className="p-4">
       <div className="overflow-x-auto">

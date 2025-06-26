@@ -1,5 +1,6 @@
 "use server";
 
+// import LatestBotRating from "@/app/data/models/LatestBotRating";
 import Puzzle from "@/app/data/models/Puzzle";
 import User from "@/app/data/models/User";
 import UserScore from "@/app/data/models/UserScore";
@@ -42,6 +43,11 @@ export default async function Page({
     limit: pageSizeNumber,
     offset: (Number(page) - 1) * pageSizeNumber,
   });
+  // const ratings = await LatestBotRating.findAndCountAll({
+  //   order: [["latest_rating", "ASC"]],
+  //   limit: pageSizeNumber,
+  //   offset: (Number(page) - 1) * pageSizeNumber,
+  // });
   const puzzles = (await Puzzle.findAll()).map((puzzle) => {
     return PuzzleZodel.parse(puzzle);
   });
