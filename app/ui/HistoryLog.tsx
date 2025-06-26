@@ -21,9 +21,9 @@ export default function HistoryLog() {
     ["CRITICAL BLUNDER", "text-red-800"],
     ["Blunder", "text-blunder-red"],
   ]);
-  React.useEffect(() => {
-    logEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [history]);
+  // React.useEffect(() => {
+  //   logEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  // }, [history]);
   React.useEffect(() => {
     if (isOpen && contentRef.current) {
       setHeight(`${contentRef.current.scrollHeight}px`);

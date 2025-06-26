@@ -155,7 +155,7 @@ export default function Board({ puzzles }: { puzzles: PuzzleZype[] }) {
       {/* In progress overlay */}
       {started && !gameOver && (
         <div
-          className={`opacity-65 z-10 bg-gunmetal h-screen w-screen absolute left-0 top-0 flex`}
+          className={`opacity-65 z-10 bg-gunmetal fixed top-0 left-0 w-screen h-screen flex`}
         >
           <div className="mx-auto my-auto bg-black">
             <div className="mx-auto my-auto text-lavendar-blush text-2xl mt-[25%]">
