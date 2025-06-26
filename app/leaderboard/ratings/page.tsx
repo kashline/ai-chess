@@ -37,7 +37,7 @@ export default async function Page({
   const numPageSize = Number(pageSize);
   const totalPages = Math.ceil(ratings.count / pageSizeNumber);
   return (
-    <div>
+    <div className="w-[75%] mx-auto">
       <div className="flex">
         <h1 className="text-4xl mx-auto text-lavendar-blush">Bot rankings</h1>
       </div>

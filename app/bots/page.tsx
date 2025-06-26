@@ -39,7 +39,7 @@ export default async function Page() {
     ],
   });
   return (
-    <div className="p-4">
+    <div className="p-4 w-[75%] mx-auto">
       <div className="overflow-x-auto">
         {bots.length !== 0 && (
           <div>
