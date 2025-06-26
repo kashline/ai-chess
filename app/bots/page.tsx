@@ -6,6 +6,9 @@ import { auth } from "@/auth";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import "../ui/styles/Leaderboard.css";
+// import sequelize from "sequelize/lib/sequelize";
+import LatestBotRating from "@/app/data/models/LatestBotRating";
+// import { Op } from "sequelize";
 
 export default async function Page() {
   const userId = (await cookies()).get("userId")?.value;
@@ -26,7 +29,19 @@ export default async function Page() {
       </div>
     );
   }
-  const bots = await Bot.findAll({ where: { UserID: userId } });
+  const bots = await Bot.findAll({
+    where: { UserID: userId },
+  });
+  const ratings = new Map<number, number>();
+  await Promise.all(
+    bots.map(async (bot) => {
+      const rating = await LatestBotRating.findOne({
+        where: { BotID: bot.id },
+      });
+      ratings.set(bot.id, rating?.dataValues.latest_rating);
+    })
+  );
+  console.log(ratings);
   return (
     <div className="p-4">
       <div className="overflow-x-auto">
@@ -40,6 +55,7 @@ export default async function Page() {
                   <th className="px-4 py-2 border">Model</th>
                   <th className="px-4 py-2 border">Prompt</th>
                   <th className="px-4 py-2 border">Remaining Games</th>
+                  <th className="px-4 py-2 border">Rating</th>
                 </tr>
               </thead>
               <tbody>
@@ -53,6 +69,7 @@ export default async function Page() {
                     <td className="px-4 py-2 border">
                       {bot.dataValues.RemainingGames}
                     </td>
+                    <td className="px-4 py-2 border">{ratings.get(bot.id)}</td>
                   </tr>
                 ))}
               </tbody>

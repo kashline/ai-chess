@@ -43,7 +43,6 @@ export default async function Page({
       <div className="flex">
         <h1 className="mx-auto py-4 text-4xl text-lavendar-blush">Edit Bot</h1>
       </div>
-
       <BotEditFormClientWrapper bot={bot} edit={true} />
     </div>
   );
