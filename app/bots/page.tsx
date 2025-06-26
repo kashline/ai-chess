@@ -6,9 +6,7 @@ import { auth } from "@/auth";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import "../ui/styles/Leaderboard.css";
-// import sequelize from "sequelize/lib/sequelize";
 import LatestBotRating from "@/app/data/models/LatestBotRating";
-// import { Op } from "sequelize";
 
 export default async function Page() {
   const userId = (await cookies()).get("userId")?.value;
@@ -31,16 +29,15 @@ export default async function Page() {
   }
   const bots = await Bot.findAll({
     where: { UserID: userId },
+    include: [
+      {
+        model: LatestBotRating,
+        as: "latest_rating",
+        required: false,
+        attributes: ["latest_rating"],
+      },
+    ],
   });
-  const ratings = new Map<number, number>();
-  await Promise.all(
-    bots.map(async (bot) => {
-      const rating = await LatestBotRating.findOne({
-        where: { BotID: bot.id },
-      });
-      ratings.set(bot.id, rating?.dataValues.latest_rating);
-    })
-  );
   return (
     <div className="p-4">
       <div className="overflow-x-auto">
@@ -68,7 +65,14 @@ export default async function Page() {
                     <td className="px-4 py-2 border">
                       {bot.dataValues.RemainingGames}
                     </td>
-                    <td className="px-4 py-2 border">{ratings.get(bot.id)}</td>
+                    <td className="px-4 py-2 border">
+                      {
+                        // Hacky type assertion to get around latest_rating not being on the bot type
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        (bot as any).dataValues.latest_rating.dataValues
+                          .latest_rating
+                      }
+                    </td>
                   </tr>
                 ))}
               </tbody>

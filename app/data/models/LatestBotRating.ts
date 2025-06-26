@@ -1,5 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../connection";
+import Bot from "@/app/data/models/Bot";
 
 class LatestBotRating extends Model {}
 
@@ -24,3 +25,15 @@ LatestBotRating.init(
 );
 
 export default LatestBotRating;
+
+Bot.hasOne(LatestBotRating, {
+  foreignKey: "BotID",
+  sourceKey: "id",
+  as: "latest_rating",
+});
+
+LatestBotRating.belongsTo(Bot, {
+  foreignKey: "BotID",
+  targetKey: "id",
+  as: "bot",
+});

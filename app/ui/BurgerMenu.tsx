@@ -90,7 +90,7 @@ export default function BurgerMenu() {
             >
               <BurgerMenuButton
                 title="Leaderboard"
-                href="/leaderboard/"
+                href="/leaderboard/ratings"
                 Icon={LeaderboardIcon({
                   fill: "#eee5e9",
                   width: 25,
