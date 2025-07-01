@@ -49,3 +49,8 @@ Bot.init(
     modelName: "Bot",
   }
 );
+
+Bot.belongsTo(User, {
+  foreignKey: "UserID",
+  as: "user",
+});

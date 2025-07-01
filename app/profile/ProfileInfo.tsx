@@ -60,7 +60,8 @@ export default function ProfileInfo() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   });
-  if (!user) return <ProfileLoadingSkeleton className="max-w-md min-w-sm h-[356]" />;
+  if (!user)
+    return <ProfileLoadingSkeleton className="max-w-md min-w-sm h-[356]" />;
   return (
     <div className="max-w-md min-w-sm mx-auto p-6">
       <div className="flex gap-6">
@@ -99,6 +100,7 @@ export default function ProfileInfo() {
                 ref={editUsernameRef}
                 value={username}
                 type="text"
+                maxLength={20}
                 onChange={(e) => {
                   setUsername(e.target.value);
                 }}

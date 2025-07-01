@@ -42,6 +42,7 @@ export default function CreateUsername() {
           type="text"
           className="border border-gray-300 p-2 rounded w-full"
           value={username}
+          maxLength={20}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="e.g. matey42"
           required

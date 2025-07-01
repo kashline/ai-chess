@@ -5,6 +5,7 @@ import LatestBotRating from "@/app/data/models/LatestBotRating";
 import { redirect } from "next/navigation";
 import "@/app/ui/styles/Leaderboard.css";
 import Pagination from "@/app/ui/Pagination";
+import User from "@/app/data/models/User";
 
 export default async function Page({
   searchParams,
@@ -30,6 +31,12 @@ export default async function Page({
         as: "bot",
         required: true,
         attributes: ["id", "Name", "Model"],
+        include: [
+          {
+            model: User,
+            as: "user",
+          },
+        ],
       },
     ],
   });
@@ -45,9 +52,10 @@ export default async function Page({
         <thead className="">
           <tr className="">
             <th className="px-4">Rank</th>
+            <th className="px-4">Rating</th>
             <th className="px-4">Name</th>
             <th className="px-4">Model</th>
-            <th className="px-4">Rating</th>
+            <th className="px-4">Owner</th>
           </tr>
         </thead>
         <tbody>
@@ -56,11 +64,12 @@ export default async function Page({
               return (
                 <tr key={index} className="border-2">
                   <td>{index + 1 + (numPage - 1) * numPageSize}</td>
-                  <td>{rating.dataValues.bot.Name}</td>
-                  <td>{rating.dataValues.bot.Model}</td>
                   <td className="text-center">
                     {rating.dataValues.latest_rating}
                   </td>
+                  <td>{rating.dataValues.bot.Name}</td>
+                  <td>{rating.dataValues.bot.Model}</td>
+                  <td>{rating.dataValues.bot.user.dataValues.username}</td>
                 </tr>
               );
             })}
