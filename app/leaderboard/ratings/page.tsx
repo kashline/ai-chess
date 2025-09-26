@@ -30,7 +30,7 @@ export default async function Page({
         model: Bot,
         as: "bot",
         required: true,
-        attributes: ["id", "Name", "Model"],
+        attributes: ["id", "Name", "Model", "Prompt"],
         include: [
           {
             model: User,
@@ -55,6 +55,7 @@ export default async function Page({
             <th className="px-4">Rating</th>
             <th className="px-4">Name</th>
             <th className="px-4">Model</th>
+            <th className="px-4">Prompt</th>
             <th className="px-4">Owner</th>
           </tr>
         </thead>
@@ -69,6 +70,7 @@ export default async function Page({
                   </td>
                   <td>{rating.dataValues.bot.Name}</td>
                   <td>{rating.dataValues.bot.Model}</td>
+                  <td>{rating.dataValues.bot.Prompt}</td>
                   <td>{rating.dataValues.bot.user.dataValues.username}</td>
                 </tr>
               );
