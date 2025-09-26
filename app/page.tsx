@@ -37,7 +37,7 @@ export default async function Page() {
             </div>
             <div className="flex">
               <Link
-                href={`/play`}
+                href={`/practice`}
                 className="mx-auto text-non-photo-blue hover:text-blue-400"
               >
                 Get started
