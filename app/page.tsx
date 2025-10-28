@@ -26,13 +26,13 @@ export default async function Page() {
         <div className="w-full h-full flex justify-center ">
           <div className="border-4 bg-gunmetal px-2 py-2 rounded-md border-black my-auto">
             <h1 className="text-non-photo-blue text-8xl">
-              <p className="mx-auto text-2xl">How smart is AI?</p>
+              <p className="mx-auto text-2xl">Build an AI chess bot!</p>
             </h1>
             <div className="flex"></div>
             <div className="flex">
               <p className="mx-auto text-lavendar-blush">
                 Test LLMs and your prompt against various chess problems. How
-                can you modify the behavior to get a better score?
+                can you modify the prompt to get a better score?
               </p>
             </div>
             <div className="flex">

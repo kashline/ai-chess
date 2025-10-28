@@ -47,7 +47,7 @@ export default function BurgerMenu() {
       </button>
       <div
         className={`text-lavendar-blush gap-10 absolute z-50 bg-gunmetal w-64 h-dvh transition-all ease-in duration-200 border-solid top-0 border-gray-500 border-2 rounded-lg ${
-          !menuToggle ? "-left-64" : "left-0"
+          !menuToggle ? "-left-64 invisible" : "left-0"
         }`}
         ref={wrapperRef}
       >
