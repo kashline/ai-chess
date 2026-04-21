@@ -22,7 +22,7 @@
     "clsx": "^2.1.1",
     "google-auth-library": "^9.15.1",
     "install": "^0.13.0",
-    "next": "^15.3.2",
+    "next": "15.3.8",
     "next-auth": "^5.0.0-beta.25",
     "npm": "^11.3.0",
     "obscenity": "^0.4.3",
